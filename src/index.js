@@ -2,7 +2,6 @@ const path = require("path");
 const http = require("http");
 const socketio = require("socket.io");
 const express = require("express");
-const { isProfane } = require("no-profanity");
 const {
   generateMessage,
   generateLocationMessage,
@@ -61,10 +60,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendMessage", (newMessage, callback) => {
-    // const filter = new Filter();
-    if (isProfane(newMessage)) {
-      return callback("Profanity is not allowed!");
-    }
     const user = getUser(socket.id);
 
     if (!user) {
